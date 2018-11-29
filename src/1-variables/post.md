@@ -1,4 +1,4 @@
-#Variables
+# Variables
 
 Declaring variables that are set to their zero values can be done like this:
 
