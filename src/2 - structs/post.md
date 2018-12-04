@@ -4,9 +4,9 @@ Go allows you to declare your own user defined types. In other languages those a
 
 ```go
 type example struct {
-	flag bool
-	counter int16
-	pi float32
+  flag bool
+  counter int16
+  pi float32
 }
 ```
 
@@ -14,7 +14,7 @@ Now, let us suppose we use the `example` struct later to initialize a new variab
 
 ```go
 func main() {
-	var e1 example
+  var e1 example
 }
 ```
 
@@ -22,12 +22,12 @@ The question now is — how much memory is being allocated for `e1` ? A struct i
 
 ```go
 type example struct {
-	counter1 int64
-	counter2 int64
-	counter3 int64
-	pi float32
-	flag1 bool
-	flag2 bool
+  counter1 int64
+  counter2 int64
+  counter3 int64
+  pi float32
+  flag1 bool
+  flag2 bool
 }
 ```
 
@@ -36,9 +36,9 @@ Now lets use the method where we declare a variable of type `example` and initia
 
 ```go
 e2 := example{
-	flat: true,
-	counter: 10,
-	pi: 3.14,
+  flat: true,
+  counter: 10,
+  pi: 3.14,
 }
 ```
 
@@ -46,13 +46,13 @@ Also, we can declare a variable of an anonymous type and init it using a struct 
 
 ```go
 e := struct {
-	flag bool
-	counter int16
-	pi float32
+  flag bool
+  counter int16
+  pi float32
 }{
-	flag: true,
-	counter: 10,
-	pi: 3.14,
+  flag: true,
+  counter: 10,
+  pi: 3.14,
 }
 ```
 
@@ -60,13 +60,13 @@ To see if two structs are identical you’ll need explicit conversion. Anonymous
 
 ```go
 var greet struct {
-	flag true
-	pi float32
+  flag true
+  pi float32
 }
 
 var cat struct {
-	flag true
-	pi float32
+  flag true
+  pi float32
 }
 var b greet
 var c cat
@@ -75,11 +75,9 @@ b = c //compiler error cant use c as type greet in assignment
 //we have to specify the conversion explicitly
 b = greet(c)
 
-//for anonynous structs this works without explicit conversion
+//for anonymous structs this works without explicit conversion
 
-b = e //works as expected as e is not based on an unamed type byt is an anonymous struct type
+b = e //works as expected as e is not based on an unnamed type byt is an anonymous struct type
 ```
+
 This will be very useful when passing around anonymous functions (eg working with http requests, functions are first-class in Go).
-
-
-
