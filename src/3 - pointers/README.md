@@ -96,3 +96,22 @@ func escapeToHeap() *user {
 
 As we ca see, we make a `user` copy in `stayOnStack` and pass it (`return`) higher on the stack to the `main` function (value semantics). In `escapeToHeap` we dont return the value like in `stayOnStack`, but the address of `u` (pointer semantics). That is the value passed back up the call stack. Remember, *passed by value* means a value is always going to be copied and moved around, either the value itself or the address. You might think that after this call the `main` stack frame will now have a pointer [`*`] -> `escapeToHeap` to a value that is on the stack frame below (`escapeToHeap`). This is not the case because once we go up the stack the previous stack frames are discarded and now we have a pointer to something that is about to get erased. The memory is still there but is no longer valid, so we can't actually point to something that is not there anymore. Stacks are self-cleaning data structures. Every time we make a function call we clean the stack on the way down and initialize it with zero value. That is why it will have to be placed on the **heap**, this is what is called 'shared value' -- every stack frame can access the value on the heap. `main` is going to have a pointer to the value that is now on the heap. `escapeToHeap` function (from within the stack frame) itself is going to have a pointer to the heap. Escape analysis make the decision on what should stay on the stack and what on the heap.
 
+Let's look at another example:
+
+```go
+func main() {
+  x := 4
+  fmt.Println(x)
+  foo(&x) // `&` means pass the address of `x` to foo, not the `x` itself
+  fmt.Println(x)
+}
+
+func foo(y *int) {
+  *y := 5 // `*` is an operator here an is used to assign VALUE to that address
+  fmt.Println(*y)
+}
+
+// 4
+// 5 (foo prints 5 as the value of that address was changed)
+// 5
+```
