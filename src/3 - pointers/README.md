@@ -107,7 +107,7 @@ func main() {
 }
 
 func foo(y *int) {
-  *y := 5 // `*` is an operator here an is used to assign VALUE to that address
+  *y := 5 // `*` is an operator here and is used to assign VALUE to that address
   fmt.Println(*y)
 }
 
